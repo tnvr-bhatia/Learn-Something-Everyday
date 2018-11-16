@@ -90,3 +90,39 @@ The **DB2** command line tool for benchmarking the SQL Statements along with sum
     * Arithmetic Mean Time:       0.029296 seconds
     * Geometric Mean Time:        0.011564 seconds
 
+
+### Generated Timestamp for Every Insert Update on Row
+
+    create table t_demo (
+     c1 int, 
+     c2 double, 
+     c3 varchar(4),
+     updated_time TIMESTAMP FOR EACH ROW ON UPDATE AS ROW CHANGE TIMESTAMP NOT NULL
+     );
+
+* Specifies that the column is a timestamp column for the table.  
+* Value is generated for each row that is **inserted** and **updated**.
+* Table can have only one  **ROW CHANGE TIMESTAMP** column.
+
+
+### Information on Current SQL Execution 
+
+```GET DIAGNOSTICS``` is used to get the information of current execution.
+
+Returns :-
+
+1. **DB2_RETURN_STATUS** :- Status value returned from the procedure.
+2. **DB2_SQL_NESTING_LEVEL** :- Current level of recursion in effect.
+3. **ROW_COUNT** :- Number of rows.
+4. **DB2_TOKEN_STRING** :- Error or warning message tokens returned. 
+5. **MESSAGE_TEXT** :- Error or warning message text returned.
+
+**Syntax for Get Diagnostics**  
+
+```
+GET DIAGNOSTICS sql_variable1 = ROW_COUNT,
+                sql_variable2 = DB2_RETURN_STATUS,
+                sql_variable3 = DB2_SQL_NESTING_LEVEL,
+                sql_variable4 = DB2_TOKEN_STRING,
+                sql_variable5 = MESSAGE_TEXT;
+```
